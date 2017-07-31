@@ -1,7 +1,6 @@
 package com.vwaber.udacity.crusty.ui;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,27 +14,23 @@ import com.vwaber.udacity.crusty.data.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeDetailListAdapter extends RecyclerView.Adapter<RecipeDetailListAdapter.IngredientViewHolder>{
+class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder>{
 
     private final Context mContext;
-    //private final List<Ingredient> mIngredients;
-    private Recipe mRecipe;
+    private final List<Ingredient> mIngredients;
 
-    RecipeDetailListAdapter(Context context){
+    IngredientListAdapter(Context context){
         mContext = context;
+        mIngredients = new ArrayList<>();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
 
     @Override
     public IngredientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layoutId = R.layout.ingredient_list_item;
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View itemView = inflater.inflate(layoutId, parent, false);
-        return new RecipeDetailListAdapter.IngredientViewHolder(itemView);
+        return new IngredientListAdapter.IngredientViewHolder(itemView);
     }
 
     @Override
@@ -45,12 +40,13 @@ public class RecipeDetailListAdapter extends RecyclerView.Adapter<RecipeDetailLi
 
     @Override
     public int getItemCount() {
-        if(mRecipe == null) return 0;
-        else return mRecipe.getIngredients().size();
+        return mIngredients.size();
     }
 
-    void swap(Recipe data){
-        mRecipe = data;
+    void swap(List<Ingredient> data){
+        if(data == null) return;
+        mIngredients.clear();
+        mIngredients.addAll(data);
         notifyDataSetChanged();
     }
 
@@ -64,23 +60,9 @@ public class RecipeDetailListAdapter extends RecyclerView.Adapter<RecipeDetailLi
         }
 
         void bind(final int position){
-            Ingredient ingredient = mRecipe.getIngredients().get(position);
+            Ingredient ingredient = mIngredients.get(position);
             ingredientName.setText(ingredient.getIngredient());
         }
     }
 
-    class StepViewHolder extends RecyclerView.ViewHolder {
-
-        //TextView ingredientName;
-
-        StepViewHolder(View itemView) {
-            super(itemView);
-            //ingredientName = (TextView) itemView.findViewById(R.id.tv_ingredient_name);
-        }
-
-        void bind(final int position){
-            //Ingredient ingredient = mRecipe.ingredients.get(position);
-            //ingredientName.setText(ingredient.getIngredient());
-        }
-    }
 }

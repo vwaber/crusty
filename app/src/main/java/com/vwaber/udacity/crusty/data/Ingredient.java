@@ -7,8 +7,6 @@ import com.vwaber.udacity.crusty.R;
 
 public class Ingredient implements Parcelable {
 
-    public static final int VIEW_TYPE = R.id.ingredient_view_type;
-
     private float quantity;
     private String measure;
     private String ingredient;

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     public void onRecipeClick(Recipe data) {
         Intent intent = new Intent(this, RecipeDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable(RecipeDetailActivity.INTENT_PARCELABLE_EXTRA_KEY, data);
+        bundle.putParcelable(RecipeDetailActivity.RECIPE_PARCELABLE_KEY, data);
         intent.putExtras(bundle);
         startActivity(intent);
     }

@@ -64,7 +64,7 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
         RecipeViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            recipeName = (TextView) itemView.findViewById(R.id.tv_recipe_name);
+            recipeName = itemView.findViewById(R.id.tv_recipe_name);
         }
 
         void bind(final int position) {

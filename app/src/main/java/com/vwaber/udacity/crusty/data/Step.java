@@ -7,13 +7,13 @@ import com.vwaber.udacity.crusty.R;
 
 public class Step implements Parcelable {
 
-    public static final int VIEW_TYPE = R.id.step_view_type;
-
     private int id;
     private String shortDescription;
     private String description;
     private String videoUrl;
     private String thumbnailURL;
+
+    public String getName(){return shortDescription;}
 
     @SuppressWarnings("unused")
     public Step(){}

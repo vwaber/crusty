@@ -12,12 +12,6 @@
         android:layout_height="match_parent"
         />
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
-        />
-
     <FrameLayout
         android:id="@+id/fragment_container_2"
         android:layout_width="match_parent"
