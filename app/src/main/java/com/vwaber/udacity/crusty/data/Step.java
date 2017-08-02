@@ -14,6 +14,7 @@ public class Step implements Parcelable {
     private String thumbnailURL;
 
     public String getName(){return shortDescription;}
+    public String getText(){return description;}
 
     @SuppressWarnings("unused")
     public Step(){}

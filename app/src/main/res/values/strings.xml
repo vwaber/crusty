@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Crusty</string>
-    <string name="data_url">https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json</string>
+    <string name="data_url" translatable="false">https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json</string>
+
+    <string name="recipe_details_makes">"Makes "</string>
+    <string name="recipe_details_servings">" servings"</string>
+
+    <string name="ingredient_decimal_format">#.#</string>
 </resources>

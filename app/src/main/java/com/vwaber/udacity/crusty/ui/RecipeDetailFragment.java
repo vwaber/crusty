@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Recipe;
@@ -18,7 +19,11 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.St
 
     private IngredientListAdapter mIngredientsAdapter;
     private StepListAdapter mStepsAdapter;
+    private Recipe mRecipe;
     private Context mContext;
+
+    private TextView mRecipeName;
+    private TextView mRecipeServings;
 
     public RecipeDetailFragment(){}
 
@@ -26,8 +31,6 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.St
     public void onStepClick(Step data) {
         OnStepClickListener listener = (OnStepClickListener) mContext;
         listener.onStepClick(data);
-//        OnRecipeClickListener listener = (OnRecipeClickListener) getContext();
-//        listener.onRecipeClick(data);
     }
 
     interface OnFragmentCreatedListener{
@@ -49,6 +52,9 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.St
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_recipe_detail, container, false);
+
+        mRecipeName = rootView.findViewById(R.id.tv_recipe_name);
+        mRecipeServings = rootView.findViewById(R.id.tv_recipe_servings);
 
         createIngredientList(rootView);
         createStepList(rootView);
@@ -72,6 +78,7 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.St
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(mStepsAdapter);
     }
 
@@ -82,8 +89,11 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.St
         ((OnFragmentCreatedListener) mContext).onFragmentCreated(this);
     }
 
-    void setRecipe(Recipe recipe){
-        mIngredientsAdapter.swap(recipe.getIngredients());
-        mStepsAdapter.swap(recipe.getSteps());
+    void setRecipe(Recipe data){
+        mRecipe = data;
+        mIngredientsAdapter.swap(mRecipe.getIngredients());
+        mStepsAdapter.swap(mRecipe.getSteps());
+        mRecipeName.setText(mRecipe.getName());
+        mRecipeServings.setText(String.valueOf(mRecipe.getServings()));
     }
 }

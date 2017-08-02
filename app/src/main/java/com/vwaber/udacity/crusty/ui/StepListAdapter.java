@@ -4,15 +4,12 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.vwaber.udacity.crusty.R;
-import com.vwaber.udacity.crusty.data.Ingredient;
-import com.vwaber.udacity.crusty.data.Recipe;
 import com.vwaber.udacity.crusty.data.Step;
 
 import java.util.ArrayList;
@@ -67,12 +64,12 @@ class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepViewHolde
         StepViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            stepName = itemView.findViewById(R.id.tv_step_name);
+            stepName = itemView.findViewById(R.id.tv_step_text);
         }
 
         void bind(final int position){
             Step step = mSteps.get(position);
-            stepName.setText(step.getName());
+            stepName.setText(step.getText());
         }
 
         @Override

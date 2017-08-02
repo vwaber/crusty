@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="unit_keys">
+        <item>CUP</item>
+        <item>TBLSP</item>
+        <item>TSP</item>
+        <item>K</item>
+        <item>G</item>
+        <item>OZ</item>
+        <item>UNIT</item>
+    </string-array>
+    <string-array name="unit_values">
+        <item>cups</item>
+        <item>tablespoons</item>
+        <item>teaspoons</item>
+        <item>kilograms</item>
+        <item>grams</item>
+        <item>ounces</item>
+        <item>" "</item>
+    </string-array>
+</resources>

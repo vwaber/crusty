@@ -1,6 +1,7 @@
 package com.vwaber.udacity.crusty.ui;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +12,20 @@ import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Ingredient;
 import com.vwaber.udacity.crusty.data.Recipe;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder>{
 
     private final Context mContext;
+    private final Resources mResources;
     private final List<Ingredient> mIngredients;
 
     IngredientListAdapter(Context context){
         mContext = context;
+        mResources = context.getResources();
         mIngredients = new ArrayList<>();
     }
 
@@ -53,15 +58,39 @@ class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.I
     class IngredientViewHolder extends RecyclerView.ViewHolder {
 
         TextView ingredientName;
+        TextView ingredientUnit;
+        TextView ingredientQuantity;
+        DecimalFormat format = new DecimalFormat(mResources.getString( R.string.ingredient_decimal_format));
 
         IngredientViewHolder(View itemView) {
             super(itemView);
-            ingredientName = (TextView) itemView.findViewById(R.id.tv_ingredient_name);
+            ingredientName = itemView.findViewById(R.id.tv_ingredient_name);
+            ingredientUnit = itemView.findViewById(R.id.tv_ingredient_unit);
+            ingredientQuantity = itemView.findViewById(R.id.tv_ingredient_quantity);
         }
 
         void bind(final int position){
+
             Ingredient ingredient = mIngredients.get(position);
-            ingredientName.setText(ingredient.getIngredient());
+
+            String name = ingredient.getIngredient().toLowerCase();
+            String quantity = format.format(ingredient.getQuantity());
+
+            String[] keyArray = mResources.getStringArray(R.array.unit_keys);
+            String[] valueArray = mResources.getStringArray(R.array.unit_values);
+
+            String unitKey = ingredient.getUnit();
+            String unit = "";
+
+            for(int i = 0; i < keyArray.length; i++){
+                if(Objects.equals(unitKey, keyArray[i])) unit = valueArray[i];
+            }
+
+            if(!unit.equals("") && !unit.equals(" ")) unit = " " + unit + " ";
+
+            ingredientName.setText(name);
+            ingredientUnit.setText(unit);
+            ingredientQuantity.setText(quantity);
         }
     }
 

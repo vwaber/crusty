@@ -3,15 +3,15 @@ package com.vwaber.udacity.crusty.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.vwaber.udacity.crusty.R;
-
 public class Ingredient implements Parcelable {
 
-    private float quantity;
-    private String measure;
     private String ingredient;
+    private String measure;
+    private float quantity;
 
     public String getIngredient(){return ingredient;}
+    public String getUnit(){return measure;}
+    public float getQuantity(){return quantity;}
 
     @SuppressWarnings("unused")
     public Ingredient(){}
