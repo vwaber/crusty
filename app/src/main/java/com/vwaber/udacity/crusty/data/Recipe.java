@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Recipe implements Parcelable{
 
+    public final static String PARCELABLE_EXTRA_KEY = "recipe-intent-parcelable-extra-key";
+
     private int id;
     private String name;
     private int servings;

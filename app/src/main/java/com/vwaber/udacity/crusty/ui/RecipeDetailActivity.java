@@ -14,9 +14,7 @@ public class RecipeDetailActivity extends AppCompatActivity
         implements
         RecipeListAdapter.RecipeClickListener,
         RecipeDetailFragment.FragmentCreationListener,
-        StepListAdapter.StepClickListener {
-
-    final static String RECIPE_PARCELABLE_KEY = "recipe-intent-parcelable-extra-key";
+        RecipeDetailFragment.StepClickListener{
 
     private Resources mResources;
 
@@ -63,17 +61,17 @@ public class RecipeDetailActivity extends AppCompatActivity
 
     @Override
     public void onFragmentCreated(RecipeDetailFragment fragment) {
-        if(getIntent().hasExtra(RECIPE_PARCELABLE_KEY)){
-            Recipe data = getIntent().getParcelableExtra(RECIPE_PARCELABLE_KEY);
+        if(getIntent().hasExtra(Recipe.PARCELABLE_EXTRA_KEY)){
+            Recipe data = getIntent().getParcelableExtra(Recipe.PARCELABLE_EXTRA_KEY);
             fragment.setRecipe(data);
         }
     }
 
     @Override
-    public void onStepClick(Step data) {
+    public void onStepClick(Recipe data) {
         Intent intent = new Intent(this, StepDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable(StepDetailActivity.STEP_PARCELABLE_KEY, data);
+        bundle.putParcelable(Recipe.PARCELABLE_EXTRA_KEY, data);
         intent.putExtras(bundle);
         startActivity(intent);
     }

@@ -15,26 +15,39 @@ import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Recipe;
 import com.vwaber.udacity.crusty.data.Step;
 
-public class RecipeDetailFragment extends Fragment{
+public class RecipeDetailFragment extends Fragment implements StepListAdapter.StepClickListener {
 
     private IngredientListAdapter mIngredientsAdapter;
     private StepListAdapter mStepsAdapter;
     private Recipe mRecipe;
     private Context mContext;
 
+    private StepClickListener mStepClickListener;
+
     private TextView mRecipeName;
     private TextView mRecipeServings;
 
     public RecipeDetailFragment(){}
 
+    interface StepClickListener{
+        void onStepClick(Recipe data);
+    }
+
+    @Override
+    public void onStepClick(Step data) {
+        mStepClickListener.onStepClick(mRecipe);
+    }
+
     interface FragmentCreationListener{
         void onFragmentCreated(RecipeDetailFragment fragment);
     }
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+        mStepClickListener = (StepClickListener) context;
     }
 
     @Nullable
@@ -64,7 +77,7 @@ public class RecipeDetailFragment extends Fragment{
 
     private void createStepList(View parent){
         RecyclerView recyclerView = parent.findViewById(R.id.rv_step_list);
-        mStepsAdapter = new StepListAdapter(mContext);
+        mStepsAdapter = new StepListAdapter(mContext, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
