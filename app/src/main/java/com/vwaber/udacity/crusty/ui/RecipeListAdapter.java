@@ -19,17 +19,16 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
 
     private final Context mContext;
     private final List<Recipe> mRecipes;
-    private final RecyclerItemClickListener mClickListener;
+    private final RecipeClickListener mClickListener;
 
-    interface RecyclerItemClickListener {
-        void onRecyclerItemClick(Recipe data);
+    interface RecipeClickListener {
+        void onRecipeClick(Recipe data);
     }
 
-    RecipeListAdapter(Context context, @Nullable Fragment fragment) {
+    RecipeListAdapter(Context context) {
         mContext = context;
         mRecipes = new ArrayList<>();
-        if(fragment != null) mClickListener = (RecyclerItemClickListener) fragment;
-        else mClickListener = (RecyclerItemClickListener) context;
+        mClickListener = (RecipeClickListener) context;
     }
 
     @Override
@@ -75,7 +74,7 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
         @Override
         public void onClick(View view) {
             Recipe recipe = mRecipes.get(getAdapterPosition());
-            mClickListener.onRecyclerItemClick(recipe);
+            mClickListener.onRecipeClick(recipe);
         }
 
     }

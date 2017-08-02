@@ -1,8 +1,7 @@
 package com.vwaber.udacity.crusty.ui;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +24,10 @@ class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepViewHolde
         void onStepClick(Step data);
     }
 
-    StepListAdapter(Context context, @Nullable Fragment fragment) {
+    StepListAdapter(@NonNull Context context) {
         mContext = context;
         mSteps = new ArrayList<>();
-        if(fragment != null) mClickListener = (StepClickListener) fragment;
-        else mClickListener = (StepClickListener) context;
+        mClickListener = (StepClickListener) context;
     }
 
     @Override

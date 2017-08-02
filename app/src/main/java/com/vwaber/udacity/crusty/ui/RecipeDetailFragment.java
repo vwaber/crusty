@@ -15,7 +15,7 @@ import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Recipe;
 import com.vwaber.udacity.crusty.data.Step;
 
-public class RecipeDetailFragment extends Fragment implements StepListAdapter.StepClickListener{
+public class RecipeDetailFragment extends Fragment{
 
     private IngredientListAdapter mIngredientsAdapter;
     private StepListAdapter mStepsAdapter;
@@ -27,18 +27,8 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.St
 
     public RecipeDetailFragment(){}
 
-    @Override
-    public void onStepClick(Step data) {
-        OnStepClickListener listener = (OnStepClickListener) mContext;
-        listener.onStepClick(data);
-    }
-
-    interface OnFragmentCreatedListener{
+    interface FragmentCreationListener{
         void onFragmentCreated(RecipeDetailFragment fragment);
-    }
-
-    interface OnStepClickListener {
-        void onStepClick(Step data);
     }
 
     @Override
@@ -74,7 +64,7 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.St
 
     private void createStepList(View parent){
         RecyclerView recyclerView = parent.findViewById(R.id.rv_step_list);
-        mStepsAdapter = new StepListAdapter(mContext, this);
+        mStepsAdapter = new StepListAdapter(mContext);
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -86,7 +76,7 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.St
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((OnFragmentCreatedListener) mContext).onFragmentCreated(this);
+        ((FragmentCreationListener) mContext).onFragmentCreated(this);
     }
 
     void setRecipe(Recipe data){

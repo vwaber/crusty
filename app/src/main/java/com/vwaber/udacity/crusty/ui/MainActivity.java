@@ -10,7 +10,8 @@ import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Recipe;
 
 public class MainActivity extends AppCompatActivity
-        implements RecipeListFragment.OnRecipeClickListener {
+        implements
+        RecipeListAdapter.RecipeClickListener{
 
     Resources mResources;
 
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         fragmentManager.beginTransaction()
-            .add(R.id.fragment_container, recipeListFragment)
-            .commit();
+                .add(R.id.fragment_container, recipeListFragment)
+                .commit();
 
     }
 

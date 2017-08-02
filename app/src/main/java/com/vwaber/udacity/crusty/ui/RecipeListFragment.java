@@ -21,7 +21,6 @@ import java.util.List;
 
 public class RecipeListFragment extends Fragment
         implements
-        RecipeListAdapter.RecyclerItemClickListener,
         LoaderManager.LoaderCallbacks<List<Recipe>>{
 
     private static final int RECIPE_LOADER_ID = 0;
@@ -30,10 +29,6 @@ public class RecipeListFragment extends Fragment
     private RecipeListAdapter mAdapter;
 
     private int mGridSpanCount;
-
-    public interface OnRecipeClickListener {
-        void onRecipeClick(Recipe data);
-    }
 
     public RecipeListFragment() {}
 
@@ -44,7 +39,7 @@ public class RecipeListFragment extends Fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_list, container, false);
 
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_recipe_list);
-        mAdapter = new RecipeListAdapter(getContext(), this);
+        mAdapter = new RecipeListAdapter(getContext());
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), mGridSpanCount);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -75,9 +70,4 @@ public class RecipeListFragment extends Fragment
     @Override
     public void onLoaderReset(Loader<List<Recipe>> loader) {}
 
-    @Override
-    public void onRecyclerItemClick(Recipe data) {
-        OnRecipeClickListener listener = (OnRecipeClickListener) getContext();
-        listener.onRecipeClick(data);
-    }
 }

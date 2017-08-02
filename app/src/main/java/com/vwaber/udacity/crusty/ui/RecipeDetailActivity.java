@@ -12,9 +12,9 @@ import com.vwaber.udacity.crusty.data.Step;
 
 public class RecipeDetailActivity extends AppCompatActivity
         implements
-        RecipeListFragment.OnRecipeClickListener,
-        RecipeDetailFragment.OnFragmentCreatedListener,
-        RecipeDetailFragment.OnStepClickListener {
+        RecipeListAdapter.RecipeClickListener,
+        RecipeDetailFragment.FragmentCreationListener,
+        StepListAdapter.StepClickListener {
 
     final static String RECIPE_PARCELABLE_KEY = "recipe-intent-parcelable-extra-key";
 
