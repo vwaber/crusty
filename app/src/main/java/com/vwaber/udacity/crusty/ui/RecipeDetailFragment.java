@@ -30,12 +30,12 @@ public class RecipeDetailFragment extends Fragment implements StepListAdapter.St
     public RecipeDetailFragment(){}
 
     interface StepClickListener{
-        void onStepClick(Recipe data);
+        void onStepClick(Recipe recipe, Step step);
     }
 
     @Override
-    public void onStepClick(Step data) {
-        mStepClickListener.onStepClick(mRecipe);
+    public void onStepClick(Step step) {
+        mStepClickListener.onStepClick(mRecipe, step);
     }
 
     interface FragmentCreationListener{

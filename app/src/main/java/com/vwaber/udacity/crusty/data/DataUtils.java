@@ -1,7 +1,9 @@
 package com.vwaber.udacity.crusty.data;
 
 import android.net.Uri;
+import android.text.Html;
 
+import com.google.common.base.CharMatcher;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,6 +26,7 @@ public class DataUtils {
         try {
             url = new URL(urlString);
             String json = captureStringFromUrl(url);
+            json = CharMatcher.ascii().retainFrom(json);
             return convertJSONtoRecipes(json);
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -34,7 +37,6 @@ public class DataUtils {
     }
 
     private static List<Recipe> convertJSONtoRecipes(String json){
-
         Gson gson = new Gson();
         ArrayList<Recipe> recipes;
         recipes = gson.fromJson(json, new TypeToken<ArrayList<Recipe>>(){}.getType());

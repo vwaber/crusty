@@ -11,10 +11,12 @@ import com.vwaber.udacity.crusty.data.Step;
 public class StepDetailActivity extends AppCompatActivity
         implements
         RecipeDetailFragment.FragmentCreationListener,
-        RecipeDetailFragment.StepClickListener
+        RecipeDetailFragment.StepClickListener,
+        StepDetailFragment.FragmentCreationListener
 {
 
     RecipeDetailFragment mRecipeDetailFragment;
+    StepDetailFragment mStepDetailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +26,14 @@ public class StepDetailActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         mRecipeDetailFragment = new RecipeDetailFragment();
+        mStepDetailFragment = new StepDetailFragment();
 
         fragmentManager.beginTransaction()
                 .add(R.id.fragment_container_1, mRecipeDetailFragment)
+                .add(R.id.fragment_container_2, mStepDetailFragment)
                 .commit();
 
     }
-
-
 
     @Override
     public void onFragmentCreated(RecipeDetailFragment fragment) {
@@ -42,7 +44,15 @@ public class StepDetailActivity extends AppCompatActivity
     }
 
     @Override
-    public void onStepClick(Recipe data) {
+    public void onFragmentCreated(StepDetailFragment fragment) {
+        if(getIntent().hasExtra(Step.PARCELABLE_EXTRA_KEY)){
+            Step data = getIntent().getParcelableExtra(Step.PARCELABLE_EXTRA_KEY);
+            fragment.setStep(data);
+        }
+    }
 
+    @Override
+    public void onStepClick(Recipe recipe, Step step) {
+        mStepDetailFragment.setStep(step);
     }
 }

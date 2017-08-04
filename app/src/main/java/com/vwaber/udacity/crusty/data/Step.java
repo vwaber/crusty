@@ -7,14 +7,19 @@ import com.vwaber.udacity.crusty.R;
 
 public class Step implements Parcelable {
 
+    public final static String PARCELABLE_EXTRA_KEY = "step-intent-parcelable-extra-key";
+
     private int id;
     private String shortDescription;
     private String description;
-    private String videoUrl;
+    private String videoURL;
     private String thumbnailURL;
+
 
     public String getName(){return shortDescription;}
     public String getText(){return description;}
+    public String getVideoUrl(){return videoURL;}
+    public String getImageUrl(){return thumbnailURL;}
 
     @SuppressWarnings("unused")
     public Step(){}
@@ -23,7 +28,7 @@ public class Step implements Parcelable {
         id = in.readInt();
         shortDescription = in.readString();
         description = in.readString();
-        videoUrl = in.readString();
+        videoURL = in.readString();
         thumbnailURL = in.readString();
     }
 
@@ -49,7 +54,7 @@ public class Step implements Parcelable {
         parcel.writeInt(id);
         parcel.writeString(shortDescription);
         parcel.writeString(description);
-        parcel.writeString(videoUrl);
+        parcel.writeString(videoURL);
         parcel.writeString(thumbnailURL);
     }
 }

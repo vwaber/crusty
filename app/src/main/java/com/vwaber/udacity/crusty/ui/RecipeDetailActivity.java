@@ -68,10 +68,11 @@ public class RecipeDetailActivity extends AppCompatActivity
     }
 
     @Override
-    public void onStepClick(Recipe data) {
+    public void onStepClick(Recipe recipe, Step step) {
         Intent intent = new Intent(this, StepDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Recipe.PARCELABLE_EXTRA_KEY, data);
+        bundle.putParcelable(Recipe.PARCELABLE_EXTRA_KEY, recipe);
+        bundle.putParcelable(Step.PARCELABLE_EXTRA_KEY, step);
         intent.putExtras(bundle);
         startActivity(intent);
     }
