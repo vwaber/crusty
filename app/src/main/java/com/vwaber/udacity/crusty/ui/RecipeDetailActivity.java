@@ -16,47 +16,62 @@ public class RecipeDetailActivity extends AppCompatActivity
         RecipeDetailFragment.FragmentCreationListener,
         RecipeDetailFragment.StepClickListener{
 
-    private Resources mResources;
-
-    private boolean mIsDualPaneLayout;
-
-    private RecipeDetailFragment mIngredientListFragment;
+    private RecipeDetailFragment mRecipeDetailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
-        mResources = getResources();
-
-        mIsDualPaneLayout = findViewById(R.id.dual_pane_layout) != null;
-
-        mIngredientListFragment = new RecipeDetailFragment();
+        Resources resources = getResources();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
+        boolean isDualPaneLayout = findViewById(R.id.dual_pane_layout) != null;
 
-        if(mIsDualPaneLayout){
+        RecipeListFragment recipeListFragment;
+        RecipeDetailFragment recipeDetailFragment;
 
-            RecipeListFragment recipeListFragment = new RecipeListFragment();
-            recipeListFragment.setGridSpanCount(mResources.getInteger(R.integer.recipe_grid_spans_narrow));
+        if(isDualPaneLayout){
 
-            fragmentManager.beginTransaction()
-                    .add(R.id.fragment_container_1, recipeListFragment)
-                    .add(R.id.fragment_container_2, mIngredientListFragment)
-                    .commit();
+            recipeListFragment = (RecipeListFragment) fragmentManager.findFragmentById(R.id.fragment_container_1);
+            recipeDetailFragment = (RecipeDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_2);
+
+            if(recipeListFragment == null){
+                recipeListFragment = new RecipeListFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_container_1, recipeListFragment)
+                        .commit();
+            }
+
+            if(recipeDetailFragment == null){
+                recipeDetailFragment = new RecipeDetailFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_container_2, recipeDetailFragment)
+                        .commit();
+            }
+
+            recipeListFragment.setGridSpanCount(resources.getInteger(R.integer.recipe_grid_spans_narrow));
 
         }else{
 
-            fragmentManager.beginTransaction()
-                    .add(R.id.fragment_container, mIngredientListFragment)
-                    .commit();
+            recipeDetailFragment = (RecipeDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container);
+
+            if(recipeDetailFragment == null){
+                recipeDetailFragment = new RecipeDetailFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_container, recipeDetailFragment)
+                        .commit();
+            }
+
         }
+
+        mRecipeDetailFragment = recipeDetailFragment;
 
     }
 
     @Override
     public void onRecipeClick(Recipe data) {
-        mIngredientListFragment.setRecipe(data);
+        mRecipeDetailFragment.setRecipe(data);
     }
 
     @Override

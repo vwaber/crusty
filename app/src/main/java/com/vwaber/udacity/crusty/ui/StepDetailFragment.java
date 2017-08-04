@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.vwaber.udacity.crusty.R;
-import com.vwaber.udacity.crusty.data.DataUtils;
 import com.vwaber.udacity.crusty.data.Step;
-
-import java.util.Objects;
 
 public class StepDetailFragment extends Fragment {
 

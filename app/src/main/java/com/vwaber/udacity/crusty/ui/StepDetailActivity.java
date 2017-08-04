@@ -12,10 +12,8 @@ public class StepDetailActivity extends AppCompatActivity
         implements
         RecipeDetailFragment.FragmentCreationListener,
         RecipeDetailFragment.StepClickListener,
-        StepDetailFragment.FragmentCreationListener
-{
+        StepDetailFragment.FragmentCreationListener{
 
-    RecipeDetailFragment mRecipeDetailFragment;
     StepDetailFragment mStepDetailFragment;
 
     @Override
@@ -24,14 +22,44 @@ public class StepDetailActivity extends AppCompatActivity
         setContentView(R.layout.activity_step_detail);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
+        boolean isDualPaneLayout = findViewById(R.id.dual_pane_layout) != null;
 
-        mRecipeDetailFragment = new RecipeDetailFragment();
-        mStepDetailFragment = new StepDetailFragment();
+        RecipeDetailFragment recipeDetailFragment;
+        StepDetailFragment stepDetailFragment;
 
-        fragmentManager.beginTransaction()
-                .add(R.id.fragment_container_1, mRecipeDetailFragment)
-                .add(R.id.fragment_container_2, mStepDetailFragment)
-                .commit();
+        if(isDualPaneLayout){
+
+            recipeDetailFragment = (RecipeDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_1);
+            stepDetailFragment = (StepDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_2);
+
+            if(recipeDetailFragment == null){
+                recipeDetailFragment = new RecipeDetailFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_container_1, recipeDetailFragment)
+                        .commit();
+            }
+
+            if(stepDetailFragment == null){
+                stepDetailFragment = new StepDetailFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_container_2, stepDetailFragment)
+                        .commit();
+            }
+
+        }else{
+
+            stepDetailFragment = (StepDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container);
+
+            if(stepDetailFragment == null){
+                stepDetailFragment = new StepDetailFragment();
+                fragmentManager.beginTransaction()
+                        .add(R.id.fragment_container, stepDetailFragment)
+                        .commit();
+            }
+
+        }
+
+        mStepDetailFragment = stepDetailFragment;
 
     }
 

@@ -22,15 +22,20 @@ public class MainActivity extends AppCompatActivity
 
         mResources = getResources();
 
-        RecipeListFragment recipeListFragment = new RecipeListFragment();
-
-        recipeListFragment.setGridSpanCount(mResources.getInteger(R.integer.recipe_grid_spans_wide));
-
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        fragmentManager.beginTransaction()
-                .add(R.id.fragment_container, recipeListFragment)
-                .commit();
+        RecipeListFragment recipeListFragment = (RecipeListFragment) fragmentManager.findFragmentById(R.id.fragment_container);
+
+        if (recipeListFragment == null) {
+
+            recipeListFragment = new RecipeListFragment();
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, recipeListFragment)
+                    .commit();
+
+        }
+
+        recipeListFragment.setGridSpanCount(mResources.getInteger(R.integer.recipe_grid_spans_wide));
 
     }
 
