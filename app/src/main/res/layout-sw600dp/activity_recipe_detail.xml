@@ -7,13 +7,13 @@
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/fragment_container_1"
+        android:id="@+id/fragment_container_secondary"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         />
 
     <FrameLayout
-        android:id="@+id/fragment_container_2"
+        android:id="@+id/fragment_container_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

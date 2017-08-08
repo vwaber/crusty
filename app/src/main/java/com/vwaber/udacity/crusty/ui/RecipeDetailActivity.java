@@ -28,40 +28,27 @@ public class RecipeDetailActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         boolean isDualPaneLayout = findViewById(R.id.dual_pane_layout) != null;
 
-        RecipeListFragment recipeListFragment;
-        RecipeDetailFragment recipeDetailFragment;
+        RecipeDetailFragment recipeDetailFragment = (RecipeDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_main);
+
+        if(recipeDetailFragment == null){
+            recipeDetailFragment = new RecipeDetailFragment();
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_container_main, recipeDetailFragment)
+                    .commit();
+        }
 
         if(isDualPaneLayout){
 
-            recipeListFragment = (RecipeListFragment) fragmentManager.findFragmentById(R.id.fragment_container_1);
-            recipeDetailFragment = (RecipeDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_2);
+            RecipeListFragment recipeListFragment = (RecipeListFragment) fragmentManager.findFragmentById(R.id.fragment_container_secondary);
 
             if(recipeListFragment == null){
                 recipeListFragment = new RecipeListFragment();
                 fragmentManager.beginTransaction()
-                        .add(R.id.fragment_container_1, recipeListFragment)
-                        .commit();
-            }
-
-            if(recipeDetailFragment == null){
-                recipeDetailFragment = new RecipeDetailFragment();
-                fragmentManager.beginTransaction()
-                        .add(R.id.fragment_container_2, recipeDetailFragment)
+                        .add(R.id.fragment_container_secondary, recipeListFragment)
                         .commit();
             }
 
             recipeListFragment.setGridSpanCount(resources.getInteger(R.integer.recipe_grid_spans_narrow));
-
-        }else{
-
-            recipeDetailFragment = (RecipeDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container);
-
-            if(recipeDetailFragment == null){
-                recipeDetailFragment = new RecipeDetailFragment();
-                fragmentManager.beginTransaction()
-                        .add(R.id.fragment_container, recipeDetailFragment)
-                        .commit();
-            }
 
         }
 

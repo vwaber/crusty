@@ -41,6 +41,7 @@ dependencies {
     androidTestCompile 'com.android.support.test:rules:' + rootProject.rulesVersion;
     androidTestCompile 'com.android.support.test.espresso:espresso-core:' + rootProject.espressoVersion;
     androidTestCompile 'com.android.support.test.espresso:espresso-contrib:' + rootProject.espressoVersion;
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:' + rootProject.espressoVersion;
 
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.google.guava:guava:22.0-android'

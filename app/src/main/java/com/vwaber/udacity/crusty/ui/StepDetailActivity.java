@@ -24,42 +24,68 @@ public class StepDetailActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         boolean isDualPaneLayout = findViewById(R.id.dual_pane_layout) != null;
 
-        RecipeDetailFragment recipeDetailFragment;
-        StepDetailFragment stepDetailFragment;
+        mStepDetailFragment = (StepDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_main);
+
+        if(mStepDetailFragment == null){
+            mStepDetailFragment = new StepDetailFragment();
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_container_main, mStepDetailFragment)
+                    .commit();
+        }
 
         if(isDualPaneLayout){
 
-            recipeDetailFragment = (RecipeDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_1);
-            stepDetailFragment = (StepDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_2);
+            RecipeDetailFragment recipeDetailFragment = (RecipeDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_secondary);
 
             if(recipeDetailFragment == null){
                 recipeDetailFragment = new RecipeDetailFragment();
                 fragmentManager.beginTransaction()
-                        .add(R.id.fragment_container_1, recipeDetailFragment)
-                        .commit();
-            }
-
-            if(stepDetailFragment == null){
-                stepDetailFragment = new StepDetailFragment();
-                fragmentManager.beginTransaction()
-                        .add(R.id.fragment_container_2, stepDetailFragment)
-                        .commit();
-            }
-
-        }else{
-
-            stepDetailFragment = (StepDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container);
-
-            if(stepDetailFragment == null){
-                stepDetailFragment = new StepDetailFragment();
-                fragmentManager.beginTransaction()
-                        .add(R.id.fragment_container, stepDetailFragment)
+                        .add(R.id.fragment_container_secondary, recipeDetailFragment)
                         .commit();
             }
 
         }
 
-        mStepDetailFragment = stepDetailFragment;
+
+
+
+
+//        RecipeDetailFragment recipeDetailFragment;
+//        StepDetailFragment stepDetailFragment;
+//
+//        if(isDualPaneLayout){
+//
+//            recipeDetailFragment = (RecipeDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_1);
+//            stepDetailFragment = (StepDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_2);
+//
+//            if(recipeDetailFragment == null){
+//                recipeDetailFragment = new RecipeDetailFragment();
+//                fragmentManager.beginTransaction()
+//                        .add(R.id.fragment_container_1, recipeDetailFragment)
+//                        .commit();
+//            }
+//
+//            if(stepDetailFragment == null){
+//                stepDetailFragment = new StepDetailFragment();
+//                fragmentManager.beginTransaction()
+//                        .add(R.id.fragment_container_2, stepDetailFragment)
+//                        .commit();
+//            }
+//
+//        }else{
+//
+//            stepDetailFragment = (StepDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container);
+//
+//            if(stepDetailFragment == null){
+//                stepDetailFragment = new StepDetailFragment();
+//                fragmentManager.beginTransaction()
+//                        .add(R.id.fragment_container, stepDetailFragment)
+//                        .commit();
+//            }
+//
+//        }
+//
+//        mStepDetailFragment = stepDetailFragment;
 
     }
 
