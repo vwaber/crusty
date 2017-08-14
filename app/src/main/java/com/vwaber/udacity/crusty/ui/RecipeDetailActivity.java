@@ -57,8 +57,8 @@ public class RecipeDetailActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRecipeClick(Recipe data) {
-        mRecipeDetailFragment.setRecipe(data);
+    public void onRecipeClick(Recipe recipe, Bundle bundle) {
+        mRecipeDetailFragment.setRecipe(recipe);
     }
 
     @Override

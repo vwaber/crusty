@@ -1,6 +1,7 @@
 package com.vwaber.udacity.crusty.ui;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -22,13 +23,13 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
     private final RecipeClickListener mClickListener;
 
     interface RecipeClickListener {
-        void onRecipeClick(Recipe data);
+        void onRecipeClick(Recipe recipe, Bundle bundle);
     }
 
-    RecipeListAdapter(Context context) {
+    RecipeListAdapter(Context context, Fragment fragment) {
         mContext = context;
         mRecipes = new ArrayList<>();
-        mClickListener = (RecipeClickListener) context;
+        mClickListener = (RecipeClickListener) fragment;
     }
 
     @Override
@@ -58,6 +59,7 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
 
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        Recipe recipe;
         final TextView recipeName;
 
         RecipeViewHolder(View itemView) {
@@ -67,14 +69,16 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
         }
 
         void bind(final int position) {
-            Recipe recipe = mRecipes.get(position);
+            recipe = mRecipes.get(position);
             recipeName.setText(recipe.getName());
         }
 
         @Override
         public void onClick(View view) {
-            Recipe recipe = mRecipes.get(getAdapterPosition());
-            mClickListener.onRecipeClick(recipe);
+            //Recipe recipe = mRecipes.get(getAdapterPosition());
+            final Bundle bundle = new Bundle();
+            bundle.putParcelable(Recipe.PARCELABLE_EXTRA_KEY, recipe);
+            mClickListener.onRecipeClick(recipe, bundle);
         }
 
     }

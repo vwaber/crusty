@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Recipe;
+import com.vwaber.udacity.crusty.widget.WidgetUtils;
 
 public class MainActivity extends AppCompatActivity
         implements
@@ -40,10 +41,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onRecipeClick(Recipe data) {
+    public void onRecipeClick(Recipe recipe, Bundle bundle) {
+
+//        final Bundle bundle = new Bundle();
+//        bundle.putParcelable(Recipe.PARCELABLE_EXTRA_KEY, data);
+
+        WidgetUtils.updateWidget(this, bundle);
+
         Intent intent = new Intent(this, RecipeDetailActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(Recipe.PARCELABLE_EXTRA_KEY, data);
         intent.putExtras(bundle);
         startActivity(intent);
     }

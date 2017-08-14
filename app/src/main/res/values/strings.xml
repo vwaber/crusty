@@ -5,5 +5,9 @@
     <string name="recipe_details_makes">"Makes "</string>
     <string name="recipe_details_servings">" servings"</string>
 
+    <string name="step_detail_iv_desc">Image showing step</string>
+
     <string name="ingredient_decimal_format">#.#</string>
+
+    <string name="widget_empty_text">Choose a recipe</string>
 </resources>

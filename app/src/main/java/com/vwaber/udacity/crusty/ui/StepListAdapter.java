@@ -25,12 +25,6 @@ class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepViewHolde
         void onStepClick(Step data);
     }
 
-    StepListAdapter(@NonNull Context context) {
-        mContext = context;
-        mSteps = new ArrayList<>();
-        mClickListener = (StepClickListener) context;
-    }
-
     StepListAdapter(@NonNull Context context, Fragment fragment) {
         mContext = context;
         mSteps = new ArrayList<>();
