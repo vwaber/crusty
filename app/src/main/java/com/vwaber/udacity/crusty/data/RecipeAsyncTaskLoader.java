@@ -9,7 +9,7 @@ import java.util.List;
 public class RecipeAsyncTaskLoader extends AsyncTaskLoader<List<Recipe>>{
 
     private List<Recipe> data;
-    private String url;
+    private final String url;
 
     public RecipeAsyncTaskLoader(Context context, String urlString) {
         super(context);

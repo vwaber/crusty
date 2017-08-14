@@ -14,14 +14,12 @@ public class MainActivity extends AppCompatActivity
         implements
         RecipeListAdapter.RecipeClickListener{
 
-    Resources mResources;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mResources = getResources();
+        Resources resources = getResources();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -36,15 +34,12 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        recipeListFragment.setGridSpanCount(mResources.getInteger(R.integer.recipe_grid_spans_wide));
+        recipeListFragment.setGridSpanCount(resources.getInteger(R.integer.recipe_grid_spans_wide));
 
     }
 
     @Override
     public void onRecipeClick(Recipe recipe, Bundle bundle) {
-
-//        final Bundle bundle = new Bundle();
-//        bundle.putParcelable(Recipe.PARCELABLE_EXTRA_KEY, data);
 
         WidgetUtils.updateWidget(this, bundle);
 

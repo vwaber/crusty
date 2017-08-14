@@ -58,7 +58,7 @@ class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepViewHolde
 
     class StepViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView stepName;
+        final TextView stepName;
 
         StepViewHolder(View itemView) {
             super(itemView);

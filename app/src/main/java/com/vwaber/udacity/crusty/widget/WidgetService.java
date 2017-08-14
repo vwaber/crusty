@@ -21,8 +21,8 @@ public class WidgetService extends RemoteViewsService{
 
 class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
 
-    Context mContext;
-    List<Ingredient> mIngredients;
+    private final Context mContext;
+    private List<Ingredient> mIngredients;
 
     ListRemoteViewsFactory(Context context) {
         mContext = context;

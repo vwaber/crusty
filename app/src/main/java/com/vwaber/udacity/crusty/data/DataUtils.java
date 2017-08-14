@@ -1,8 +1,5 @@
 package com.vwaber.udacity.crusty.data;
 
-import android.net.Uri;
-import android.text.Html;
-
 import com.google.common.base.CharMatcher;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

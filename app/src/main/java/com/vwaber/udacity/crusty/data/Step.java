@@ -3,8 +3,6 @@ package com.vwaber.udacity.crusty.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.vwaber.udacity.crusty.R;
-
 public class Step implements Parcelable {
 
     public final static String PARCELABLE_EXTRA_KEY = "step-intent-parcelable-extra-key";
@@ -15,8 +13,6 @@ public class Step implements Parcelable {
     private String videoURL;
     private String thumbnailURL;
 
-
-    public String getName(){return shortDescription;}
     public String getText(){return description;}
     public String getVideoUrl(){return videoURL;}
     public String getImageUrl(){return thumbnailURL;}

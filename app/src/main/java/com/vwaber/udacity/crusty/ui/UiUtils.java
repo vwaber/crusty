@@ -23,7 +23,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.vwaber.udacity.crusty.R;
 
-class MediaUtils {
+class UiUtils {
 
     static SimpleExoPlayer getDefaultExoVideoPlayer(Context context){
 
@@ -31,9 +31,7 @@ class MediaUtils {
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
 
-        SimpleExoPlayer player = ExoPlayerFactory.newSimpleInstance(context, trackSelector);
-
-        return player;
+        return ExoPlayerFactory.newSimpleInstance(context, trackSelector);
     }
 
     static MediaSource convertUriToDefaultMediaSource(Context context, Uri mediaUri){

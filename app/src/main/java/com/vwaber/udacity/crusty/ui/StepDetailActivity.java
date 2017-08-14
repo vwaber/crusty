@@ -14,7 +14,7 @@ public class StepDetailActivity extends AppCompatActivity
         RecipeDetailFragment.StepClickListener,
         StepDetailFragment.FragmentCreationListener{
 
-    StepDetailFragment mStepDetailFragment;
+    private StepDetailFragment mStepDetailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

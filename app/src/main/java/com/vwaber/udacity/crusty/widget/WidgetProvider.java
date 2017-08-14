@@ -4,7 +4,6 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.vwaber.udacity.crusty.R;
@@ -14,7 +13,7 @@ public class WidgetProvider extends AppWidgetProvider {
 
     static Recipe mRecipe;
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
 
         Intent intent = new Intent(context, WidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Ingredient;
-import com.vwaber.udacity.crusty.data.Recipe;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -57,10 +56,10 @@ class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.I
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
 
-        TextView ingredientName;
-        TextView ingredientUnit;
-        TextView ingredientQuantity;
-        DecimalFormat format = new DecimalFormat(mResources.getString( R.string.ingredient_decimal_format));
+        final TextView ingredientName;
+        final TextView ingredientUnit;
+        final TextView ingredientQuantity;
+        final DecimalFormat format = new DecimalFormat(mResources.getString( R.string.ingredient_decimal_format));
 
         IngredientViewHolder(View itemView) {
             super(itemView);

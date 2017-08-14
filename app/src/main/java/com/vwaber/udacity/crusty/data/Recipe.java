@@ -10,13 +10,13 @@ public class Recipe implements Parcelable{
 
     public final static String PARCELABLE_EXTRA_KEY = "recipe-intent-parcelable-extra-key";
 
-    private int id;
-    private String name;
-    private int servings;
-    private String image;
+    private final int id;
+    private final String name;
+    private final int servings;
+    private final String image;
 
-    private ArrayList<Ingredient> ingredients;
-    private ArrayList<Step> steps;
+    private final ArrayList<Ingredient> ingredients;
+    private final ArrayList<Step> steps;
 
     public String getName() {
         return name;

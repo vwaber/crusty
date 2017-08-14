@@ -1,7 +1,6 @@
 package com.vwaber.udacity.crusty.ui;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,16 +20,13 @@ import com.vwaber.udacity.crusty.data.Step;
 
 public class StepDetailFragment extends Fragment {
 
-    Context mContext;
-    Resources mResources;
+    private Context mContext;
 
-    Step mStep;
+    private TextView mStepText;
+    private ImageView mStepImage;
 
-    TextView mStepText;
-    ImageView mStepImage;
-
-    SimpleExoPlayerView mPlayerView;
-    SimpleExoPlayer mExoPlayer;
+    private SimpleExoPlayerView mPlayerView;
+    private SimpleExoPlayer mExoPlayer;
 
     interface FragmentCreationListener{
         void onFragmentCreated(StepDetailFragment fragment);
@@ -40,7 +36,6 @@ public class StepDetailFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
-        mResources = context.getResources();
     }
 
     @Nullable
@@ -54,7 +49,7 @@ public class StepDetailFragment extends Fragment {
         mPlayerView = rootView.findViewById(R.id.sepv_media_player);
 
         if(mExoPlayer == null){
-            mExoPlayer = MediaUtils.getDefaultExoVideoPlayer(mContext);
+            mExoPlayer = UiUtils.getDefaultExoVideoPlayer(mContext);
             mPlayerView.setPlayer(mExoPlayer);
         }
 
@@ -75,18 +70,17 @@ public class StepDetailFragment extends Fragment {
     }
 
     void setStep(Step data){
-        mStep = data;
         mStepText.setText(data.getText());
 
         if(!TextUtils.isEmpty(data.getVideoUrl())){
             Uri videoUri = Uri.parse(data.getVideoUrl());
-            MediaSource mediaSource = MediaUtils.convertUriToDefaultMediaSource(mContext , videoUri);
+            MediaSource mediaSource = UiUtils.convertUriToDefaultMediaSource(mContext , videoUri);
             mExoPlayer.prepare(mediaSource);
             mExoPlayer.setPlayWhenReady(true);
             mPlayerView.setVisibility(View.VISIBLE);
             mStepImage.setVisibility(View.GONE);
         }else if(!TextUtils.isEmpty(data.getImageUrl())){
-            MediaUtils.loadImageInto(mContext, mStepImage, data.getImageUrl());
+            UiUtils.loadImageInto(mContext, mStepImage, data.getImageUrl());
             mStepImage.setVisibility(View.VISIBLE);
             mPlayerView.setVisibility(View.GONE);
         }else{
