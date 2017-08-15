@@ -1,13 +1,16 @@
 package com.vwaber.udacity.crusty.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Recipe;
+import com.vwaber.udacity.crusty.ui.RecipeDetailActivity;
 
 public class WidgetProvider extends AppWidgetProvider {
 
@@ -23,6 +26,12 @@ public class WidgetProvider extends AppWidgetProvider {
 
         remoteViews.setTextViewText(R.id.tv_recipe_name, mRecipe.getName());
 
+        intent = new Intent(context, RecipeDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Recipe.PARCELABLE_EXTRA_KEY, mRecipe);
+        intent.putExtras(bundle);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        remoteViews.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
         appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
 
