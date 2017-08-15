@@ -1,7 +1,6 @@
 package com.vwaber.udacity.crusty.ui;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +10,16 @@ import android.widget.TextView;
 import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Ingredient;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.IngredientViewHolder>{
 
     private final Context mContext;
-    private final Resources mResources;
     private final List<Ingredient> mIngredients;
 
     IngredientListAdapter(Context context){
         mContext = context;
-        mResources = context.getResources();
         mIngredients = new ArrayList<>();
     }
 

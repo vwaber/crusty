@@ -138,13 +138,13 @@ public class StepDetailFragment extends Fragment {
 
     }
 
-    public void showNextStep(){
+    private void showNextStep(){
         List<Step> steps = mRecipe.getSteps();
         int index = (steps.indexOf(mStep) + 1) % steps.size();
         setStep(steps.get(index));
     }
 
-    public void showPrevStep(){
+    private void showPrevStep(){
         List<Step> steps = mRecipe.getSteps();
         int index = steps.indexOf(mStep) - 1;
         if(index < 0) index += steps.size();

@@ -2,7 +2,6 @@ package com.vwaber.udacity.crusty.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -10,7 +9,6 @@ import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Ingredient;
 import com.vwaber.udacity.crusty.ui.UiUtils;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class WidgetService extends RemoteViewsService{
@@ -26,12 +24,9 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
 
     private final Context mContext;
     private List<Ingredient> mIngredients;
-    private final DecimalFormat format;
 
     ListRemoteViewsFactory(Context context) {
         mContext = context;
-        Resources resources = context.getResources();
-        format = new DecimalFormat(resources.getString( R.string.ingredient_decimal_format));
     }
 
     @Override

@@ -74,7 +74,6 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
 
         @Override
         public void onClick(View view) {
-            //Recipe recipe = mRecipes.get(getAdapterPosition());
             final Bundle bundle = new Bundle();
             bundle.putParcelable(Recipe.PARCELABLE_EXTRA_KEY, recipe);
             mClickListener.onRecipeClick(recipe, bundle);

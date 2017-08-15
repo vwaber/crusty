@@ -25,7 +25,7 @@ public class DataUtils {
             String json = captureStringFromUrl(url);
             json = CharMatcher.ascii().retainFrom(json);
             return convertJSONtoRecipes(json);
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | NullPointerException e) {
             e.printStackTrace();
         }
 
