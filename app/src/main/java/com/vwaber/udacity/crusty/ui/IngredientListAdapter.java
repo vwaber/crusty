@@ -59,7 +59,6 @@ class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.I
         final TextView ingredientName;
         final TextView ingredientUnit;
         final TextView ingredientQuantity;
-        final DecimalFormat format = new DecimalFormat(mResources.getString( R.string.ingredient_decimal_format));
 
         IngredientViewHolder(View itemView) {
             super(itemView);
@@ -73,17 +72,8 @@ class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAdapter.I
             Ingredient ingredient = mIngredients.get(position);
 
             String name = ingredient.getIngredient().toLowerCase();
-            String quantity = format.format(ingredient.getQuantity());
-
-            String[] keyArray = mResources.getStringArray(R.array.unit_keys);
-            String[] valueArray = mResources.getStringArray(R.array.unit_values);
-
-            String unitKey = ingredient.getUnit();
-            String unit = "";
-
-            for(int i = 0; i < keyArray.length; i++){
-                if(Objects.equals(unitKey, keyArray[i])) unit = valueArray[i];
-            }
+            String quantity = UiUtils.formatQuantity(mContext, ingredient.getQuantity());
+            String unit = UiUtils.formatUnit(mContext, ingredient.getUnit());
 
             if(!unit.equals("") && !unit.equals(" ")) unit = " " + unit + " ";
 

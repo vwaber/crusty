@@ -23,7 +23,10 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.vwaber.udacity.crusty.R;
 
-class UiUtils {
+import java.text.DecimalFormat;
+import java.util.Objects;
+
+public class UiUtils {
 
     static SimpleExoPlayer getDefaultExoVideoPlayer(Context context){
 
@@ -47,6 +50,32 @@ class UiUtils {
         Glide.with(context)
                 .load(imageUrl)
                 .into(imageView);
+    }
+
+    public static String formatUnit(Context context, String unit){
+
+        Resources resources = context.getResources();
+
+        String[] unitKeys = resources.getStringArray(R.array.unit_keys);
+        String[] unitValues = resources.getStringArray(R.array.unit_values);
+
+        String newUnit = null;
+
+        for(int i = 0; i < unitKeys.length; i++){
+            if(Objects.equals(unit, unitKeys[i])) newUnit = unitValues[i];
+        }
+
+        return newUnit;
+
+    }
+
+    public static String formatQuantity(Context context, float quantity){
+
+        Resources resources = context.getResources();
+        final DecimalFormat format = new DecimalFormat(resources.getString( R.string.ingredient_decimal_format));
+
+        return format.format(quantity);
+
     }
 
 }

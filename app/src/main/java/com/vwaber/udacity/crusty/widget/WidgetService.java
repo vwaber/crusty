@@ -2,12 +2,15 @@ package com.vwaber.udacity.crusty.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.vwaber.udacity.crusty.R;
 import com.vwaber.udacity.crusty.data.Ingredient;
+import com.vwaber.udacity.crusty.ui.UiUtils;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class WidgetService extends RemoteViewsService{
@@ -23,9 +26,12 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
 
     private final Context mContext;
     private List<Ingredient> mIngredients;
+    private final DecimalFormat format;
 
     ListRemoteViewsFactory(Context context) {
         mContext = context;
+        Resources resources = context.getResources();
+        format = new DecimalFormat(resources.getString( R.string.ingredient_decimal_format));
     }
 
     @Override
@@ -54,8 +60,11 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
 
         RemoteViews remoteViews= new RemoteViews(mContext.getPackageName(), R.layout.widget_list_item);
 
-        remoteViews.setTextViewText(R.id.tv_ingredient_quantity, String.valueOf(mIngredients.get(i).getQuantity()));
-        remoteViews.setTextViewText(R.id.tv_ingredient_unit, mIngredients.get(i).getUnit());
+        String unit = UiUtils.formatUnit(mContext, mIngredients.get(i).getUnit());
+        String quantity = UiUtils.formatQuantity(mContext, mIngredients.get(i).getQuantity());
+
+        remoteViews.setTextViewText(R.id.tv_ingredient_quantity, quantity);
+        remoteViews.setTextViewText(R.id.tv_ingredient_unit, unit);
         remoteViews.setTextViewText(R.id.tv_ingredient_name, mIngredients.get(i).getIngredient());
 
         return remoteViews;
