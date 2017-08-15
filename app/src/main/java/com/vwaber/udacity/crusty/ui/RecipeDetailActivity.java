@@ -23,6 +23,9 @@ public class RecipeDetailActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
+        if(getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         Resources resources = getResources();
 
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -21,6 +21,8 @@ public class StepDetailActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_detail);
 
+        if(getActionBar() != null) getActionBar().setDisplayHomeAsUpEnabled(true);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         boolean isDualPaneLayout = findViewById(R.id.dual_pane_layout) != null;
 
