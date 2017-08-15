@@ -88,6 +88,7 @@ public class StepDetailFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         mExoPlayer.release();
+        mExoPlayer = null;
     }
 
     @Override

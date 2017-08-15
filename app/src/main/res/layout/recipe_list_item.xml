@@ -13,7 +13,6 @@
         android:id="@+id/cv_recipe"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_gravity="center"
         app:cardUseCompatPadding="true"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="4dp"
@@ -24,8 +23,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|center"
-            android:textSize="24sp"
-            tools:text="Recipe Name" />
+            tools:text="Recipe Name"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/cookbook_red"
+            android:textSize="42sp"
+            android:layout_marginTop="16dp"
+            />
 
     </android.support.v7.widget.CardView>
 
