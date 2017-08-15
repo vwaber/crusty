@@ -46,62 +46,23 @@ public class StepDetailActivity extends AppCompatActivity
 
         }
 
-
-
-
-
-//        RecipeDetailFragment recipeDetailFragment;
-//        StepDetailFragment stepDetailFragment;
-//
-//        if(isDualPaneLayout){
-//
-//            recipeDetailFragment = (RecipeDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_1);
-//            stepDetailFragment = (StepDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container_2);
-//
-//            if(recipeDetailFragment == null){
-//                recipeDetailFragment = new RecipeDetailFragment();
-//                fragmentManager.beginTransaction()
-//                        .add(R.id.fragment_container_1, recipeDetailFragment)
-//                        .commit();
-//            }
-//
-//            if(stepDetailFragment == null){
-//                stepDetailFragment = new StepDetailFragment();
-//                fragmentManager.beginTransaction()
-//                        .add(R.id.fragment_container_2, stepDetailFragment)
-//                        .commit();
-//            }
-//
-//        }else{
-//
-//            stepDetailFragment = (StepDetailFragment) fragmentManager.findFragmentById(R.id.fragment_container);
-//
-//            if(stepDetailFragment == null){
-//                stepDetailFragment = new StepDetailFragment();
-//                fragmentManager.beginTransaction()
-//                        .add(R.id.fragment_container, stepDetailFragment)
-//                        .commit();
-//            }
-//
-//        }
-//
-//        mStepDetailFragment = stepDetailFragment;
-
     }
 
     @Override
     public void onFragmentCreated(RecipeDetailFragment fragment) {
         if(getIntent().hasExtra(Recipe.PARCELABLE_EXTRA_KEY)){
-            Recipe data = getIntent().getParcelableExtra(Recipe.PARCELABLE_EXTRA_KEY);
-            fragment.setRecipe(data);
+            Recipe recipe = getIntent().getParcelableExtra(Recipe.PARCELABLE_EXTRA_KEY);
+            fragment.setRecipe(recipe);
         }
     }
 
     @Override
     public void onFragmentCreated(StepDetailFragment fragment) {
         if(getIntent().hasExtra(Step.PARCELABLE_EXTRA_KEY)){
-            Step data = getIntent().getParcelableExtra(Step.PARCELABLE_EXTRA_KEY);
-            fragment.setStep(data);
+            Step step = getIntent().getParcelableExtra(Step.PARCELABLE_EXTRA_KEY);
+            Recipe recipe = getIntent().getParcelableExtra(Recipe.PARCELABLE_EXTRA_KEY);
+            fragment.setRecipe(recipe);
+            fragment.setStep(step);
         }
     }
 

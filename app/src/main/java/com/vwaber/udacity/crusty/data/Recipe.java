@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Recipe implements Parcelable{
@@ -15,8 +17,8 @@ public class Recipe implements Parcelable{
     private final int servings;
     private final String image;
 
-    private final ArrayList<Ingredient> ingredients;
-    private final ArrayList<Step> steps;
+    private final List<Ingredient> ingredients = new ArrayList<>();
+    private final List<Step> steps = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -33,8 +35,8 @@ public class Recipe implements Parcelable{
         name = in.readString();
         servings = in.readInt();
         image = in.readString();
-        ingredients = in.createTypedArrayList(Ingredient.CREATOR);
-        steps = in.createTypedArrayList(Step.CREATOR);
+        in.readTypedList(ingredients, Ingredient.CREATOR);
+        in.readTypedList(steps, Step.CREATOR);
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {

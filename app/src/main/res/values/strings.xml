@@ -5,6 +5,11 @@
     <string name="recipe_details_makes">"Makes "</string>
     <string name="recipe_details_servings">" servings"</string>
 
+    <string name="step_detail_next">Next</string>
+    <string name="step_detail_prev">Previous</string>
+    <string name="step_detail_first">First</string>
+    <string name="step_detail_last">Last</string>
+
     <string name="step_detail_iv_desc">Image showing step</string>
 
     <string name="ingredient_decimal_format">#.#</string>

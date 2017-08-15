@@ -53,4 +53,14 @@ public class Step implements Parcelable {
         parcel.writeString(videoURL);
         parcel.writeString(thumbnailURL);
     }
+
+    public boolean equals(Object o){
+        if(o instanceof Step){
+            Step toCompare = (Step) o;
+            return this.id == toCompare.id;
+        }
+        return false;
+    }
+
+
 }

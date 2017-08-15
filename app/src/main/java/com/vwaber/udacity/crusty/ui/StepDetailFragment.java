@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,17 +17,26 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.vwaber.udacity.crusty.R;
+import com.vwaber.udacity.crusty.data.Recipe;
 import com.vwaber.udacity.crusty.data.Step;
+
+import java.util.List;
 
 public class StepDetailFragment extends Fragment {
 
     private Context mContext;
+
+    private Recipe mRecipe;
+    private Step mStep;
 
     private TextView mStepText;
     private ImageView mStepImage;
 
     private SimpleExoPlayerView mPlayerView;
     private SimpleExoPlayer mExoPlayer;
+
+    private Button mNextButton;
+    private Button mPrevButton;
 
     interface FragmentCreationListener{
         void onFragmentCreated(StepDetailFragment fragment);
@@ -53,6 +63,23 @@ public class StepDetailFragment extends Fragment {
             mPlayerView.setPlayer(mExoPlayer);
         }
 
+        mNextButton = rootView.findViewById(R.id.btn_next_step);
+        mPrevButton = rootView.findViewById(R.id.btn_prev_step);
+
+        mNextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNextStep();
+            }
+        });
+
+        mPrevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPrevStep();
+            }
+        });
+
         return rootView;
 
     }
@@ -69,7 +96,13 @@ public class StepDetailFragment extends Fragment {
         ((FragmentCreationListener) mContext).onFragmentCreated(this);
     }
 
+    void setRecipe(Recipe recipe){
+        mRecipe = recipe;
+    }
+
     void setStep(Step data){
+
+        mStep = data;
         mStepText.setText(data.getText());
 
         if(!TextUtils.isEmpty(data.getVideoUrl())){
@@ -88,6 +121,33 @@ public class StepDetailFragment extends Fragment {
             mPlayerView.setVisibility(View.GONE);
         }
 
+        List<Step> steps = mRecipe.getSteps();
+        int index = steps.indexOf(mStep);
+
+        if(index == 0){
+            mNextButton.setText(R.string.step_detail_next);
+            mPrevButton.setText(R.string.step_detail_last);
+        }else if(index == steps.size()-1){
+            mNextButton.setText(R.string.step_detail_first);
+            mPrevButton.setText(R.string.step_detail_prev);
+        }else{
+            mNextButton.setText(R.string.step_detail_next);
+            mPrevButton.setText(R.string.step_detail_prev);
+        }
+
+    }
+
+    public void showNextStep(){
+        List<Step> steps = mRecipe.getSteps();
+        int index = (steps.indexOf(mStep) + 1) % steps.size();
+        setStep(steps.get(index));
+    }
+
+    public void showPrevStep(){
+        List<Step> steps = mRecipe.getSteps();
+        int index = steps.indexOf(mStep) - 1;
+        if(index < 0) index += steps.size();
+        setStep(steps.get(index));
     }
 
 }
