@@ -24,6 +24,11 @@ import java.util.List;
 
 public class StepDetailFragment extends Fragment {
 
+    private static final String PLAYER_POSITION = "player_position";
+    private static final String PLAYER_URL = "player_media_url";
+    private long mPlayerPosition;
+    private String mPlayerUrl;
+
     private Context mContext;
 
     private Recipe mRecipe;
@@ -43,6 +48,15 @@ public class StepDetailFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putLong(PLAYER_POSITION, mPlayerPosition);
+        outState.putString(PLAYER_URL, mPlayerUrl);
+        outState.putParcelable(Step.PARCELABLE_EXTRA_KEY, mStep);
+        outState.putParcelable(Recipe.PARCELABLE_EXTRA_KEY, mRecipe);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
@@ -57,11 +71,6 @@ public class StepDetailFragment extends Fragment {
         mStepText = rootView.findViewById(R.id.tv_step_text);
         mStepImage = rootView.findViewById(R.id.iv_step_image);
         mPlayerView = rootView.findViewById(R.id.sepv_media_player);
-
-        if(mExoPlayer == null){
-            mExoPlayer = UiUtils.getDefaultExoVideoPlayer(mContext);
-            mPlayerView.setPlayer(mExoPlayer);
-        }
 
         mNextButton = rootView.findViewById(R.id.btn_next_step);
         mPrevButton = rootView.findViewById(R.id.btn_prev_step);
@@ -80,21 +89,54 @@ public class StepDetailFragment extends Fragment {
             }
         });
 
+        if(savedInstanceState != null){
+            mPlayerPosition = savedInstanceState.getLong(PLAYER_POSITION);
+            mPlayerUrl = savedInstanceState.getString(PLAYER_URL);
+            mStep = savedInstanceState.getParcelable(Step.PARCELABLE_EXTRA_KEY);
+            mRecipe = savedInstanceState.getParcelable(Recipe.PARCELABLE_EXTRA_KEY);
+            setStep(mStep);
+        }
+
+        initializePlayer();
+
         return rootView;
 
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mExoPlayer.release();
-        mExoPlayer = null;
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(savedInstanceState == null) ((FragmentCreationListener) mContext).onFragmentCreated(this);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        ((FragmentCreationListener) mContext).onFragmentCreated(this);
+    public void onStart() {
+        super.onStart();
+        initializePlayer();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initializePlayer();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        releasePlayer();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        releasePlayer();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        releasePlayer();
     }
 
     void setRecipe(Recipe recipe){
@@ -103,14 +145,14 @@ public class StepDetailFragment extends Fragment {
 
     void setStep(Step data){
 
+        pausePlayer();
+
         mStep = data;
         mStepText.setText(data.getText());
 
         if(!TextUtils.isEmpty(data.getVideoUrl())){
-            Uri videoUri = Uri.parse(data.getVideoUrl());
-            MediaSource mediaSource = UiUtils.convertUriToDefaultMediaSource(mContext , videoUri);
-            mExoPlayer.prepare(mediaSource);
-            mExoPlayer.setPlayWhenReady(true);
+            mPlayerUrl = data.getVideoUrl();
+            setPlayerMedia();
             mPlayerView.setVisibility(View.VISIBLE);
             mStepImage.setVisibility(View.GONE);
         }else if(!TextUtils.isEmpty(data.getImageUrl())){
@@ -149,6 +191,34 @@ public class StepDetailFragment extends Fragment {
         int index = steps.indexOf(mStep) - 1;
         if(index < 0) index += steps.size();
         setStep(steps.get(index));
+    }
+
+    private void initializePlayer(){
+        if(mExoPlayer != null) return;
+        mExoPlayer = UiUtils.getDefaultExoVideoPlayer(mContext);
+        mPlayerView.setPlayer(mExoPlayer);
+        if(mPlayerUrl != null) setPlayerMedia();
+        if(mPlayerPosition != 0) mExoPlayer.seekTo(mPlayerPosition);
+    }
+
+    private void releasePlayer(){
+        if(mExoPlayer == null) return;
+        mPlayerPosition = mExoPlayer.getCurrentPosition();
+        mExoPlayer.release();
+        mExoPlayer = null;
+    }
+
+    private void pausePlayer(){
+        if(mExoPlayer == null) return;
+        mExoPlayer.setPlayWhenReady(false);
+    }
+
+    private void setPlayerMedia(){
+        if(mExoPlayer == null) return;
+        Uri videoUri = Uri.parse(mPlayerUrl);
+        MediaSource mediaSource = UiUtils.convertUriToDefaultMediaSource(mContext , videoUri);
+        mExoPlayer.prepare(mediaSource);
+        mExoPlayer.setPlayWhenReady(true);
     }
 
 }
