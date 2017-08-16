@@ -11,6 +11,7 @@
     <string name="step_detail_last">Last</string>
 
     <string name="step_detail_iv_desc">Image showing step</string>
+    <string name="recipe_list_iv_desc">Image showing recipe</string>
 
     <string name="ingredient_decimal_format">#.#</string>
 

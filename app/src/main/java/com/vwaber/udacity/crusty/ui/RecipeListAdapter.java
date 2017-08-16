@@ -4,9 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.vwaber.udacity.crusty.R;
@@ -60,16 +62,21 @@ class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeVie
 
         Recipe recipe;
         final TextView recipeName;
+        final ImageView recipeImage;
 
         RecipeViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             recipeName = itemView.findViewById(R.id.tv_recipe_name);
+            recipeImage = itemView.findViewById(R.id.iv_recipe_image);
         }
 
         void bind(final int position) {
             recipe = mRecipes.get(position);
             recipeName.setText(recipe.getName());
+            if(!TextUtils.isEmpty(recipe.getImageUrl())){
+                UiUtils.loadImageInto(mContext, recipeImage, recipe.getImageUrl());
+            }
         }
 
         @Override
